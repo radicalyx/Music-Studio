@@ -7,6 +7,7 @@ import { InstrumentPreset } from '../types/daw';
 import { SynthVoice } from './SynthVoice';
 import { createReverbImpulse, makeDistortionCurve } from './reverbImpulse';
 import { createDefaultSampleBuffer } from './defaultSample';
+import { generateSampleFromRecipe } from './sampleGenerator';
 
 export class InstrumentEngine {
   public ctx: BaseAudioContext;
@@ -128,9 +129,13 @@ export class InstrumentEngine {
     this.masterGainNode.connect(this.pannerNode);
     this.pannerNode.connect(this.outputNode);
 
-    // Default sample buffer initialization
+    // Sample buffer initialization
     if (preset.isSampleBased && !this.customSampleBuffer) {
-      this.customSampleBuffer = createDefaultSampleBuffer(ctx);
+      if (preset.sampleParams?.sampleRecipe) {
+        this.customSampleBuffer = generateSampleFromRecipe(ctx, preset.sampleParams.sampleRecipe);
+      } else {
+        this.customSampleBuffer = createDefaultSampleBuffer(ctx);
+      }
     }
   }
 
@@ -158,8 +163,12 @@ export class InstrumentEngine {
     this.updateDelayParams();
     this.updateReverbParams();
 
-    if (preset.isSampleBased && !this.customSampleBuffer) {
-      this.customSampleBuffer = createDefaultSampleBuffer(this.ctx);
+    if (preset.isSampleBased) {
+      if (preset.sampleParams?.sampleRecipe) {
+        this.customSampleBuffer = generateSampleFromRecipe(this.ctx, preset.sampleParams.sampleRecipe);
+      } else if (!this.customSampleBuffer) {
+        this.customSampleBuffer = createDefaultSampleBuffer(this.ctx);
+      }
     }
   }
 

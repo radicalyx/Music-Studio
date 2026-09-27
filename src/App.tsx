@@ -23,6 +23,7 @@ import { MixerPanel } from './components/MixerPanel';
 import { VirtualPianoKeyboard } from './components/VirtualPianoKeyboard';
 import { LogicExportModal } from './components/LogicExportModal';
 import { ProjectSettingsModal } from './components/ProjectSettingsModal';
+import { AiSoundGeneratorModal } from './components/AiSoundGeneratorModal';
 import {
   saveCustomPresetToStorage,
   getCustomPresetsFromStorage,
@@ -34,6 +35,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'sound' | 'pianoroll' | 'mixer' | 'export'>('sound');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
 
   // Core state
   const [preset, setPreset] = useState<InstrumentPreset>(STARTER_PRESETS[0]);
@@ -323,6 +325,7 @@ export default function App() {
         onCountInChange={(bars) => engineRef.current?.setCountInBars(bars)}
         onOpenExport={() => setIsExportModalOpen(true)}
         onOpenSettings={() => setIsSettingsModalOpen(true)}
+        onOpenAiSoundGen={() => setIsAiModalOpen(true)}
       />
 
       {/* 2. Timeline & Track Arranger View */}
@@ -359,6 +362,7 @@ export default function App() {
             customPresets={customPresets}
             onUploadSample={handleUploadSample}
             customSampleName={preset.sampleParams?.sampleName}
+            onOpenAiSoundGen={() => setIsAiModalOpen(true)}
           />
         )}
 
@@ -437,6 +441,20 @@ export default function App() {
         onExportProject={handleExportProject}
         onImportProject={handleImportProject}
         onResetSession={handleResetSession}
+      />
+
+      {/* 7. AI Sound Generator Modal Dialog */}
+      <AiSoundGeneratorModal
+        isOpen={isAiModalOpen}
+        onClose={() => setIsAiModalOpen(false)}
+        onApplyPreset={(newPreset) => {
+          handlePresetChange(newPreset);
+          setInstrumentTrack((prev) => ({ ...prev, name: newPreset.name }));
+        }}
+        onSaveCustomPreset={(newPreset) => {
+          handleSaveCustomPreset(newPreset);
+        }}
+        engine={engineRef.current}
       />
     </div>
   );

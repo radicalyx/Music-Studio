@@ -28,6 +28,7 @@ interface SoundDesignerPanelProps {
   customPresets: InstrumentPreset[];
   onUploadSample: (file: File) => void;
   customSampleName?: string;
+  onOpenAiSoundGen?: () => void;
 }
 
 export const SoundDesignerPanel: React.FC<SoundDesignerPanelProps> = ({
@@ -37,6 +38,7 @@ export const SoundDesignerPanel: React.FC<SoundDesignerPanelProps> = ({
   customPresets,
   onUploadSample,
   customSampleName,
+  onOpenAiSoundGen,
 }) => {
   const [activeSection, setActiveSection] = useState<'synth' | 'sampler' | 'fx'>('synth');
   const [customNameInput, setCustomNameInput] = useState('');
@@ -270,6 +272,18 @@ export const SoundDesignerPanel: React.FC<SoundDesignerPanelProps> = ({
             </button>
           )}
 
+          {/* AI Sound Generator Trigger */}
+          {onOpenAiSoundGen && (
+            <button
+              onClick={onOpenAiSoundGen}
+              className="px-2.5 py-1 text-xs font-semibold bg-gradient-to-r from-indigo-600 via-sky-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white rounded border border-sky-400/30 flex items-center gap-1.5 shadow-sm shadow-indigo-600/30 transition-all cursor-pointer"
+              title="Create new realistic instrument sounds with AI from prompt"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+              <span>AI Sound Gen</span>
+            </button>
+          )}
+
           {/* Section Tabs */}
           <div className="flex items-center gap-1 bg-[#181b26] p-0.5 rounded border border-[#232736]">
             <button
@@ -308,9 +322,20 @@ export const SoundDesignerPanel: React.FC<SoundDesignerPanelProps> = ({
 
       {/* Acoustic Approximation Warning / Informational Banner */}
       {preset.description && (
-        <div className="bg-[#121520] border-b border-[#232736] px-4 py-2 flex items-center gap-2 text-xs text-neutral-400">
-          <Info className="w-4 h-4 text-sky-400 shrink-0" />
-          <span>{preset.description}</span>
+        <div className="bg-[#121520] border-b border-[#232736] px-4 py-2 flex items-center justify-between text-xs text-neutral-400">
+          <div className="flex items-center gap-2">
+            {preset.isAiGenerated ? (
+              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+            ) : (
+              <Info className="w-4 h-4 text-sky-400 shrink-0" />
+            )}
+            <span>{preset.description}</span>
+          </div>
+          {preset.isAiGenerated && (
+            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 shrink-0">
+              AI Engineered Sound
+            </span>
+          )}
         </div>
       )}
 

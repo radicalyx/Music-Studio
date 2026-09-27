@@ -37,6 +37,7 @@ interface TopTransportBarProps {
   onCountInChange: (bars: number) => void;
   onOpenExport: () => void;
   onOpenSettings: () => void;
+  onOpenAiSoundGen: () => void;
 }
 
 export const TopTransportBar: React.FC<TopTransportBarProps> = ({
@@ -54,6 +55,7 @@ export const TopTransportBar: React.FC<TopTransportBarProps> = ({
   onCountInChange,
   onOpenExport,
   onOpenSettings,
+  onOpenAiSoundGen,
 }) => {
   const [isEditingBpm, setIsEditingBpm] = useState(false);
   const [bpmInput, setBpmInput] = useState(String(transport.bpm));
@@ -316,6 +318,16 @@ export const TopTransportBar: React.FC<TopTransportBarProps> = ({
               : 'Keyboard'}
           </span>
         </div>
+
+        {/* AI Sound Generator Action */}
+        <button
+          onClick={onOpenAiSoundGen}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-sky-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 rounded-md transition-all shadow-md shadow-indigo-600/30 hover:shadow-indigo-500/50 whitespace-nowrap cursor-pointer"
+          title="Create custom ultra-realistic instrument sounds with AI from prompts"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+          <span>AI Sound Gen</span>
+        </button>
 
         {/* Logic Pro Stem Export Action */}
         <button

@@ -36,6 +36,26 @@ AuraStudio is a browser-based music instrument studio and stem generation workst
 
 ---
 
+## AI Sound Generation (Text-to-Realistic Instrument)
+
+AuraStudio features an integrated **AI Sound Generator** powered by Gemini (`gemini-3.8-flash`) and acoustic physical modeling. You can describe any instrument, acoustic timbre, or synth tone in natural language to engineer ultra-realistic, playable instruments.
+
+### Key Capabilities:
+- **Acoustic Physical Modeling & Synthesis:** Analyzes your prompt to calculate physical overtone series (fundamental and harmonic decay curves), transient strike characteristics (felt hammer strikes, metal tine pings, rosin bow friction, wooden plectrum snaps, breath chuffs), dual detuned analog oscillators, 24dB resonant lowpass filters with keyboard tracking, dynamic envelopes, and stereo space effects (analog drive, chorus, delay, hall reverb).
+- **Instant Audition Riff:** Features an authentic chord progression or bass groove preview so you can immediately hear the nuance and dynamics of the generated instrument without touching a key.
+- **Interactive Mini Keyboard Preview:** Play notes and test velocity response directly inside the generator modal before loading into your session.
+- **Direct Studio Integration:** One-click "Apply & Play in Studio" loads the instrument onto your software instrument track, synthesizes the sample buffer, and readies it for live recording and offline Logic Pro export.
+- **Save to Custom Presets:** Store your favorite generated sounds locally in browser storage or export them with your project.
+
+### Inspiring Prompt Examples:
+- *"Ultra-realistic Steinway concert grand with soft felt hammer strike, intimate room resonance, and warm harmonic decay"*
+- *"Vintage 1973 Fender Rhodes Stage 73 electric piano through warm tube preamp, bell-like metallic tine strike, rich 2nd & 3rd harmonic partials, and stereo chorus tremolo"*
+- *"Punchy analog Moog Minimoog Model D bass with dual detuned sawtooth waves, sub-oscillator punch, snappy filter envelope, and saturated transistor drive"*
+- *"Acoustic solo chamber cello with authentic rosin bow friction transient, expressive vibrato, wooden chamber resonance, and natural string sustain"*
+- *"Iconic 1980s Oberheim OB-Xa analog polysynth brass swell with detuned sawtooth oscillators, resonant 24dB lowpass envelope sweep, and lush stereo width"*
+
+---
+
 ## Sound Design & Custom Instruments
 
 - **Starter Presets:**

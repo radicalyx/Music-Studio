@@ -103,6 +103,21 @@ export interface SynthParams {
   masterGain: number; // 0 to 1
 }
 
+export interface SampleHarmonic {
+  multiplier: number;
+  amplitude: number;
+  decay: number;
+}
+
+export interface SampleRecipe {
+  rootNote: number;
+  duration: number;
+  transientNoiseType: 'hammer' | 'pluck' | 'bow' | 'breath' | 'metal' | 'click' | 'none';
+  transientNoiseGain: number;
+  harmonics: SampleHarmonic[];
+  warmthSaturation: number;
+}
+
 export interface SampleParams {
   rootNote: number; // Default 60 (C4)
   tune: number; // semitones (-24 to +24)
@@ -111,6 +126,7 @@ export interface SampleParams {
   loopEnd: number; // 0 to 1
   sampleName: string;
   sampleDataUrl?: string; // base64 string for saving custom samples
+  sampleRecipe?: SampleRecipe;
 }
 
 export interface InstrumentPreset {
@@ -121,6 +137,7 @@ export interface InstrumentPreset {
   description: string;
   synthParams: SynthParams;
   sampleParams?: SampleParams;
+  isAiGenerated?: boolean;
 }
 
 export interface GuideTrackState {
